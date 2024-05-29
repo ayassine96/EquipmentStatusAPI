@@ -16,6 +16,39 @@ namespace EquipmentStatusAPI.Controllers
 
         public EquipmentStatusController(EquipmentStatusContext context) => _context = context;
 
+        // GET /status/
+        [HttpGet("status")]
+        public async Task<IActionResult> GetAllStatuses()
+        {
+            var statuses = await _context.EquipmentStatuses
+                .OrderByDescending(e => e.UpdateDate)  // Optional: Sort by the most recent updates
+                .ToListAsync();
+
+            if (statuses == null || statuses.Count == 0)
+            {
+                return NotFound("No equipment statuses found.");
+            }
+
+            return Ok(statuses);
+        }
+
+        // GET /status/{equipmentId}
+        [HttpGet("status/{equipmentId}")]
+        public async Task<IActionResult> GetStatus(string equipmentId)
+        {
+            var status = await _context.EquipmentStatuses
+                .Where(e => e.EquipmentId == equipmentId)
+                .OrderByDescending(e => e.UpdateDate) // Optional: Sort by the most recent updates
+                .ToListAsync();
+
+            if (status == null)
+            {
+                return NotFound($"Equipment with ID {equipmentId} not found.");
+            }
+
+            return Ok(status);
+        }
+
         // POST /status
         [HttpPost("status")]
         public async Task<IActionResult> PostStatus([FromBody] EquipmentStatus equipmentStatus)
@@ -32,50 +65,17 @@ namespace EquipmentStatusAPI.Controllers
             return CreatedAtAction(nameof(GetStatus), new { equipmentId = equipmentStatus.EquipmentId }, equipmentStatus);
         }
 
-        // GET /status/
-        [HttpGet("status")]
-        public async Task<IActionResult> GetAllStatuses()
-        {
-            var statuses = await _context.EquipmentStatuses
-                .OrderByDescending(e => e.UpdateDate)  // Optional: Sort by the most recent updates
-                .ToListAsync();
-
-            if (statuses == null || !statuses.Any())
-            {
-                return NotFound("No equipment statuses found.");
-            }
-
-            return Ok(statuses);
-        }
-
-        // GET /status/{equipmentId}
-        [HttpGet("status/{equipmentId}")]
-        public async Task<IActionResult> GetStatus(string equipmentId)
+        // PUT /status/{Id}
+        [HttpPut("status/{Id}")]
+        public async Task<IActionResult> UpdateStatus(int Id, [FromBody] EquipmentStatus updateStatus)
         {
             var status = await _context.EquipmentStatuses
-                .Where(e => e.EquipmentId == equipmentId)
-                .OrderByDescending(e => e.UpdateDate) // Ensures the latest status is fetched
+                .Where(e => e.Id == Id)
                 .FirstOrDefaultAsync();
 
             if (status == null)
             {
-                return NotFound($"Equipment with ID {equipmentId} not found.");
-            }
-
-            return Ok(status);
-        }
-
-        // PUT /status/{equipmentId}
-        [HttpPut("status/{equipmentId}")]
-        public async Task<IActionResult> UpdateStatus(string equipmentId, [FromBody] EquipmentStatus updateStatus)
-        {
-            var status = await _context.EquipmentStatuses
-                .Where(e => e.EquipmentId == equipmentId)
-                .FirstOrDefaultAsync();
-
-            if (status == null)
-            {
-                return NotFound($"Equipment with ID {equipmentId} not found.");
+                return NotFound($"Equipment with ID {Id} not found.");
             }
 
             status.Status = updateStatus.Status;
@@ -85,17 +85,17 @@ namespace EquipmentStatusAPI.Controllers
             return Ok(status);
         }
 
-        // DELETE /status/{equipmentId}
-        [HttpDelete("status/{equipmentId}")]
-        public async Task<IActionResult> DeleteStatus(string equipmentId)
+        // DELETE /status/{Id}
+        [HttpDelete("status/{Id}")]
+        public async Task<IActionResult> DeleteStatus(int Id)
         {
             var status = await _context.EquipmentStatuses
-                .Where(e => e.EquipmentId == equipmentId)
+                .Where(e => e.Id == Id)
                 .FirstOrDefaultAsync();
 
             if (status == null)
             {
-                return NotFound($"Equipment with ID {equipmentId} not found.");
+                return NotFound($"Equipment with ID {Id} not found.");
             }
 
             _context.EquipmentStatuses.Remove(status);
@@ -105,31 +105,3 @@ namespace EquipmentStatusAPI.Controllers
         }
     }
 }
-
-
-
-/*using Microsoft.AspNetCore.Mvc;
-using EquipmentStatusAPI.Models;
-using EquipmentStatusAPI.Data;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EquipmentStatusAPI.Controllers
-{
-    [ApiController]
-    [Route("[controller]")]
-    public class EquipmentStatusController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        private readonly EquipmentStatusContext _context;
-
-        public EquipmentStatusController(EquipmentStatusContext context)
-        {
-            _context = context;
-        }
-    }
-}*/
