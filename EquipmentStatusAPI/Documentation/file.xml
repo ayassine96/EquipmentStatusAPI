@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EquipmentStatusAPI</name>
+    </assembly>
+    <members>
+        <member name="M:EquipmentStatusAPI.Controllers.EquipmentStatusController.GetAllStatuses">
+            <summary>
+            Retrieves the current status of specified equipment.
+            </summary>
+            <param name="equipmentId">The ID of the equipment to retrieve status for.</param>
+            <returns>An array of equipment status data.</returns>
+        </member>
+        <member name="T:EquipmentStatusAPI.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:EquipmentStatusAPI.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EquipmentStatusAPI.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EquipmentStatusAPI.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
