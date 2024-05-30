@@ -36,6 +36,19 @@ namespace EquipmentStatusAPI.Tests
         }
 
         [Fact]
+        public async Task PostStatus_InvalidData_ReturnsBadRequest()
+        {
+            // Arrange
+            EquipmentStatus status = null; // Invalid data
+
+            // Act
+            var result = await _controller.PostStatus(status);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
         public async Task GetStatus_ValidId_ReturnsOkObjectResult()
         {
             // Arrange
@@ -58,19 +71,6 @@ namespace EquipmentStatusAPI.Tests
 
             // Assert
             Assert.IsType<NotFoundObjectResult>(result);
-        }
-
-        [Fact]
-        public async Task PostStatus_InvalidData_ReturnsBadRequest()
-        {
-            // Arrange
-            EquipmentStatus status = null; // Invalid data
-
-            // Act
-            var result = await _controller.PostStatus(status);
-
-            // Assert
-            Assert.IsType<BadRequestObjectResult>(result);
         }
     }
 }

@@ -4,7 +4,13 @@
         <name>EquipmentStatusAPI</name>
     </assembly>
     <members>
-        <!-- Badly formed XML comment ignored for member "M:EquipmentStatusAPI.Controllers.EquipmentStatusController.GetAllStatuses" -->
+        <member name="M:EquipmentStatusAPI.Controllers.EquipmentStatusController.GetAllStatuses">
+            <summary>
+            Retrieves the current status of specified equipment.
+            </summary>
+            <param name="equipmentId">The ID of the equipment to retrieve status for.</param>
+            <returns>An array of equipment status data.</returns>
+        </member>
         <member name="T:EquipmentStatusAPI.Migrations.InitialCreate">
             <inheritdoc />
         </member>

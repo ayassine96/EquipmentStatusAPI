@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using EquipmentStatusAPI.Data; // Ensure this namespace matches your project's structure
+using EquipmentStatusAPI.Data;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,16 @@ builder.Services.AddDbContext<EquipmentStatusContext>(options =>
 
 // Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+
+    // Include XML comments (this assumes your project's assembly name matches the output XML file name).
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 var app = builder.Build();
 
@@ -24,12 +35,6 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "EquipmentStatusAPI v1");
         c.RoutePrefix = "api-docs";
-    });
-    builder.Services.AddSwaggerGen(c =>
-    {
-        var xmlFile = $"Documentation\file.xml";
-        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-        c.IncludeXmlComments(xmlPath);
     });
 }
 else

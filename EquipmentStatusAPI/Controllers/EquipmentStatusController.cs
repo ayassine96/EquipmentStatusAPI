@@ -17,15 +17,14 @@ namespace EquipmentStatusAPI.Controllers
         public EquipmentStatusController(EquipmentStatusContext context) => _context = context;
 
         /// <summary>
-        /// Retrieves the current status of specified equipment.
+        /// Retrieves all equipment statuses, ordered by the most recent update.
         /// </summary>
-        /// <param name="equipmentId">The ID of the equipment to retrieve status for.</param>
-        /// <returns>An array of equipment status data.</returns
+        /// <returns>A list of all equipment statuses if found; otherwise, a NotFound result.</returns>
         [HttpGet("status")]
         public async Task<IActionResult> GetAllStatuses()
         {
             var statuses = await _context.EquipmentStatuses
-                .OrderByDescending(e => e.UpdateDate)  // Optional: Sort by the most recent updates
+                .OrderByDescending(e => e.UpdateDate)  // Sort by the most recent updates
                 .ToListAsync();
 
             if (statuses == null || statuses.Count == 0)
@@ -36,13 +35,17 @@ namespace EquipmentStatusAPI.Controllers
             return Ok(statuses);
         }
 
-        // GET /status/{equipmentId}
+        /// <summary>
+        /// Retrieves the current status of specified equipment.
+        /// </summary>
+        /// <param name="equipmentId">The ID of the equipment to retrieve status for.</param>
+        /// <returns>A list of status entries for the specified equipment or NotFound if none exist.</returns>
         [HttpGet("status/{equipmentId}")]
         public async Task<IActionResult> GetStatus(string equipmentId)
         {
             var status = await _context.EquipmentStatuses
                 .Where(e => e.EquipmentId == equipmentId)
-                .OrderByDescending(e => e.UpdateDate) // Optional: Sort by the most recent updates
+                .OrderByDescending(e => e.UpdateDate) // Sort by the most recent updates
                 .ToListAsync();
 
             if (status == null || !status.Any())
@@ -53,7 +56,11 @@ namespace EquipmentStatusAPI.Controllers
             return Ok(status);
         }
 
-        // POST /status
+        /// <summary>
+        /// Posts a new status for a piece of equipment.
+        /// </summary>
+        /// <param name="equipmentStatus">The status information to be added.</param>
+        /// <returns>A CreatedAtActionResult with the newly created status entry.</returns>
         [HttpPost("status")]
         public async Task<IActionResult> PostStatus([FromBody] EquipmentStatus equipmentStatus)
         {
@@ -69,7 +76,12 @@ namespace EquipmentStatusAPI.Controllers
             return CreatedAtAction(nameof(GetStatus), new { equipmentId = equipmentStatus.EquipmentId }, equipmentStatus);
         }
 
-        // PUT /status/{Id}
+        /// <summary>
+        /// Updates the status of an existing piece of equipment.
+        /// </summary>
+        /// <param name="Id">The ID of the equipment status to update.</param>
+        /// <param name="updateStatus">The new status information.</param>
+        /// <returns>OK if the update is successful; NotFound if the specified status does not exist.</returns>
         [HttpPut("status/{Id}")]
         public async Task<IActionResult> UpdateStatus(int Id, [FromBody] EquipmentStatus updateStatus)
         {
@@ -89,7 +101,11 @@ namespace EquipmentStatusAPI.Controllers
             return Ok(status);
         }
 
-        // DELETE /status/{Id}
+        /// <summary>
+        /// Deletes the status of a specified piece of equipment.
+        /// </summary>
+        /// <param name="Id">The ID of the equipment status to delete.</param>
+        /// <returns>NoContent if the deletion is successful; NotFound if the specified status does not exist.</returns>
         [HttpDelete("status/{Id}")]
         public async Task<IActionResult> DeleteStatus(int Id)
         {
@@ -105,7 +121,7 @@ namespace EquipmentStatusAPI.Controllers
             _context.EquipmentStatuses.Remove(status);
             await _context.SaveChangesAsync();
 
-            return NoContent(); // Standard response for a successful delete operation
+            return NoContent();
         }
     }
 }

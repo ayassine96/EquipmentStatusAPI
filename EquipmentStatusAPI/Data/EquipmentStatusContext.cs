@@ -11,6 +11,7 @@ namespace EquipmentStatusAPI.Data
 
         public EquipmentStatusContext(DbContextOptions<EquipmentStatusContext> options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         // This DbSet property will manage EquipmentStatus model entities, allowing CRUD operations on them.

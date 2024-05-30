@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EquipmentStatusAPI.Migrations
 {
     [DbContext(typeof(EquipmentStatusContext))]
-    [Migration("20240529124923_InitialCreate")]
+    [Migration("20240530013130_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
