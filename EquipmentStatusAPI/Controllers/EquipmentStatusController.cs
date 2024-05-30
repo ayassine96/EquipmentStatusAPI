@@ -16,7 +16,11 @@ namespace EquipmentStatusAPI.Controllers
 
         public EquipmentStatusController(EquipmentStatusContext context) => _context = context;
 
-        // GET /status/
+        /// <summary>
+        /// Retrieves the current status of specified equipment.
+        /// </summary>
+        /// <param name="equipmentId">The ID of the equipment to retrieve status for.</param>
+        /// <returns>An array of equipment status data.</returns
         [HttpGet("status")]
         public async Task<IActionResult> GetAllStatuses()
         {
@@ -41,7 +45,7 @@ namespace EquipmentStatusAPI.Controllers
                 .OrderByDescending(e => e.UpdateDate) // Optional: Sort by the most recent updates
                 .ToListAsync();
 
-            if (status == null)
+            if (status == null || !status.Any())
             {
                 return NotFound($"Equipment with ID {equipmentId} not found.");
             }

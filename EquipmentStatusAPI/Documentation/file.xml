@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EquipmentStatusAPI</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "M:EquipmentStatusAPI.Controllers.EquipmentStatusController.GetAllStatuses" -->
+        <member name="T:EquipmentStatusAPI.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:EquipmentStatusAPI.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EquipmentStatusAPI.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EquipmentStatusAPI.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
