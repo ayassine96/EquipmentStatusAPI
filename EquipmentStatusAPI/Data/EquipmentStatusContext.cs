@@ -6,7 +6,7 @@ namespace EquipmentStatusAPI.Data
     // Defining the DbContext for the EquipmentStatusAPI application.
     public class EquipmentStatusContext : DbContext
     {
-        // Add a parameterless constructor for Moq
+        // parameterless constructor
         public EquipmentStatusContext() { }
 
         public EquipmentStatusContext(DbContextOptions<EquipmentStatusContext> options) : base(options)

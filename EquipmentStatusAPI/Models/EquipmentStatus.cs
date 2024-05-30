@@ -7,7 +7,7 @@ namespace EquipmentStatusAPI.Models
         // Id is a integer surrogate primary key useful for efficiency
         public int Id { get; set; }
 
-        // EquipmentId is a integer natural key which is more meaningful for business logic
+        // EquipmentId is a string natural key which is more meaningful for business logic
         public string EquipmentId { get; set; }
 
         // Status field to store each equipment current status

@@ -18,6 +18,7 @@ namespace EquipmentStatusAPI.Tests
             var options = new DbContextOptionsBuilder<EquipmentStatusContext>()
                 .UseInMemoryDatabase(databaseName: "EquipmentStatusDbTest")
                 .Options;
+
             _context = new EquipmentStatusContext(options);
             _controller = new EquipmentStatusController(_context);
         }
@@ -55,7 +56,6 @@ namespace EquipmentStatusAPI.Tests
             var status = new EquipmentStatus { EquipmentId = "E1", Status = "Operational" };
             _context.EquipmentStatuses.Add(status);
             await _context.SaveChangesAsync();
-
             // Act
             var result = await _controller.GetStatus("E1");
 
