@@ -9,6 +9,7 @@ This is a simplified .NET Core application that serves as a backend for an equip
 3. **Install dependencies**: Run `dotnet restore` to restore all the necessary .NET packages.
 4. **Database setup**: Execute `dotnet ef database update` to apply migrations and set up the SQLite database.
 5. **Run the application**: Use `dotnet run` to start the application. The API will be available on `http://localhost:<port>` given in running terminal.
+6. **Test API**: Use Postman or the swaggerUI on `http://localhost:<port>/api-docs ` to view and test the API endpoints .
 
 ## Database Choice
 SQLite is employed as the database for this application due to its simplicity and ease of setup, which is ideal for small projects. It facilitates rapid development without the need for complex database configuration.
