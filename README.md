@@ -37,8 +37,8 @@ The `EquipmentStatusController` includes various endpoints:
 - **POST `/status`**: Create a new status entry.
 - **GET `/status`**: List all statuses.
 - **GET `/status/{equipmentId}`**: Fetch the status for a pieces of equipment with name "equipmentId".
-- **PUT `/status/{Id}`**: Update an existing status entry - added for debugging purposes.
-- **DELETE `/status/{Id}`**: Delete a status entry - added for debugging purposes.
+- **PUT `/status/{Id}`**: Update an existing status entry - **added for debugging purposes, not complete**.
+- **DELETE `/status/{Id}`**: Delete a status entry - **added for debugging purposes, not complete**.
 
 
 ## Unit/Integration Testing
